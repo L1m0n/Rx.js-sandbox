@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2017 by anonymous (http://jsbin.com/yinayizelo/16/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <style>
+    
+    #square {
+      width: 300px;
+      height: 300px;
+      background: #000;
+      position: absolute;
+      margin: 0 auto;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    #point {
+      height: 10px;
+      width: 10px;
+      background: red;
+      border-radius:50% ;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+<script src="https://unpkg.com/@reactivex/rxjs@5.0.3/dist/global/Rx.js"></script>
+
+  <div id="square">
+    <div id="point"></div>
+  </div>
+  
+  <script>
+    const point = document.getElementById('point');
+    const mouseMove$ = Rx.Observable.fromEvent(document, 'mousemove');
+    const windowWidth = window.innerWidth;
+    const windowHeigth = window.innerHeight;
+    const heightProportion = 300/windowHeigth;
+    const widthProportion = 300/windowWidth;
+
+    mouseMove$
+      .subscribe((e) => {
+          let x = widthProportion*e.x;
+          let y = heightProportion*e.y;
+          
+          point.style.left = x+'px';
+          point.style.top = y+'px';
+          
+          //console.log(x);
+      })
+    console.log(heightProportion);
+
+    
+  </script>
+</body>
+</html>
